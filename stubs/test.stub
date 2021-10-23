@@ -14,6 +14,6 @@ class {{ class }} extends TestCase
      */
     public function example()
     {
-        
+        // 
     }
 }

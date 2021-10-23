@@ -9,19 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 class {{ class }} extends Model
 {
     use HasFactory, SoftDeletes;
-    
-    /**
-     * @var array
-     */
+   
     protected $fillable = [];
 
-    /**
-     * @var array
-     */
     protected $attributes = [];
 
-    /**
-    * @var array
-    */
     protected $casts = [];
 }
