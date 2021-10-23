@@ -19,7 +19,6 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => 'abc123@ABC123', // abc123@ABC123
-            'password_confirmation' => 'abc123@ABC123', // abc123@ABC123
             'remember_token' => Str::random(10),
         ];
     }
@@ -29,6 +28,24 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'email_verified_at' => null,
+            ];
+        });
+    }
+
+    public function hash()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'password' => Hash::make('abc123@ABC123'),
+            ];
+        });
+    }
+
+    public function withConfirmation()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'password_confirmation' => 'abc123@ABC123', // abc123@ABC123
             ];
         });
     }

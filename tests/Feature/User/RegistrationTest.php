@@ -15,7 +15,7 @@ class RegistrationTest extends TestCase
      */
     public function userRegistrationWithValidDatas()
     {
-        $user = User::factory()->admin()->make();
+        $user = User::factory()->withConfirmation()->admin()->make();
         $this->postJson(route('user.register'), $user->getAttributes())
             ->assertStatus(201)
             ->assertJsonStructure([
