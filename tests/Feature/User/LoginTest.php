@@ -34,7 +34,6 @@ class LoginTest extends TestCase
      */
     public function loginWithInValidEmailAddress()
     {
-        $user = User::factory()->make();
         $this->postJson(route('user.login'), [
             'email' => 'Invalid Email Address',
             'password' => 'abc123@ABC123'

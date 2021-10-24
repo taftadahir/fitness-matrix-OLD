@@ -13,4 +13,7 @@ return [
         'success' => 'Logout from all devices successfull'
     ],
     'not_found' => 'Account not found',
+    'delete' => [
+        'success' => 'Deleted successfully'
+    ]
 ];
