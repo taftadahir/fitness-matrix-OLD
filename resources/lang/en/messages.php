@@ -10,5 +10,10 @@ return [
     ],
     'method' => [
         'not_allowed' => ":method method is not supported for this route. "
+    ],
+    'exercise' => [
+        'create' => [
+            'success' => 'Exercise Created Successfully'
+        ]
     ]
 ];

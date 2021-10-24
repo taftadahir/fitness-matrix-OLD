@@ -32,4 +32,9 @@ class User extends Authenticatable
         'gender' => 'string',
         'avatar' => 'string',
     ];
+
+    public function exercises()
+    {
+        return $this->hasMany(Exercise::class);
+    }
 }
