@@ -20,7 +20,6 @@ class ExerciseController extends Controller
     public function store(StoreRequest $request)
     {
         $validated = $request->validated();
-        // dd($validated);
 
         /**
          * @var User
