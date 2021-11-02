@@ -8,5 +8,8 @@ Route::group(
     function () {
         Route::post('/exercises', [ExerciseController::class, 'store'])
             ->name('exercise.store');
+
+        Route::get('/exercises/{exercise}', [ExerciseController::class, 'show'])
+            ->name('exercise.show');
     }
 );

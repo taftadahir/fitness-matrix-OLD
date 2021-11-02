@@ -9,6 +9,7 @@ use App\Models\Exercise;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ExerciseController extends Controller
 {
@@ -38,7 +39,14 @@ class ExerciseController extends Controller
 
     public function show(Exercise $exercise)
     {
-        //
+        // Exercise is not published and user is not creator => 404
+        if ((!$exercise->published) && auth()->id() != null && ($exercise->user->id != auth()->id())) {
+            throw new NotFoundHttpException();
+        }
+
+        return response()->json(
+            ['exercise' => new ExerciseResource($exercise),]
+        );
     }
 
     public function edit(Exercise $exercise)

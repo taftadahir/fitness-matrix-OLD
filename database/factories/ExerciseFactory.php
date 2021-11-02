@@ -16,7 +16,7 @@ class ExerciseFactory extends Factory
             'name' => $this->faker->realText(10),
             'time_based' => $this->faker->boolean,
             'reps_based' => $this->faker->boolean,
-            'published' => $this->faker->boolean,
+            'published' => false,
             'image' => $this->faker->slug,
             'user_id' => $this->faker->randomElement(User::select('id')->get())
         ];
@@ -54,6 +54,15 @@ class ExerciseFactory extends Factory
         return $this->state(function (array $attributes) use ($name) {
             return [
                 'name' => $name,
+            ];
+        });
+    }
+
+    public function user($user)
+    {
+        return $this->state(function (array $attributes) use ($user) {
+            return [
+                'user_id' => $user->id,
             ];
         });
     }
