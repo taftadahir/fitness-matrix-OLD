@@ -11,5 +11,8 @@ Route::group(
 
         Route::get('/exercises/{exercise}', [ExerciseController::class, 'show'])
             ->name('exercise.show');
+
+        Route::put('/exercises/{exercise}', [ExerciseController::class, 'update'])
+            ->name('exercise.update');
     }
 );

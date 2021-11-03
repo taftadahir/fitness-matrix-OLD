@@ -4,12 +4,16 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Exercise\StoreRequest;
+use App\Http\Requests\Exercise\UpdateRequest;
 use App\Http\Resources\ExerciseResource;
 use App\Models\Exercise;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class ExerciseController extends Controller
 {
@@ -54,9 +58,22 @@ class ExerciseController extends Controller
         //
     }
 
-    public function update(Request $request, Exercise $exercise)
+    public function update(UpdateRequest $request, Exercise $exercise)
     {
-        //
+        $validated = $request->validated();
+        $exercise->update($validated);
+
+        if (auth()->id() != $exercise->user_id) {
+            abort(403, __('auth.unauthorized'));
+        }
+
+        return response()->json(
+            [
+                'message' => trans('messages.exercise.update.success'),
+                'exercise' => new ExerciseResource($exercise)
+            ],
+            200
+        );
     }
 
     public function destroy(Exercise $exercise)
