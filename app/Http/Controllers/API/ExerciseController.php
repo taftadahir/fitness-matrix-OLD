@@ -64,7 +64,7 @@ class ExerciseController extends Controller
         $exercise->update($validated);
 
         if (auth()->id() != $exercise->user_id) {
-            abort(403, __('auth.unauthorized'));
+            abort(403, __('auth.forbidden'));
         }
 
         return response()->json(
@@ -78,6 +78,17 @@ class ExerciseController extends Controller
 
     public function destroy(Exercise $exercise)
     {
-        //
+        if (auth()->id() != $exercise->user_id) {
+            abort(403, __('auth.forbidden'));
+        }
+
+        $exercise->delete();
+
+        return response()->json(
+            [
+                'message' => trans('messages.exercise.delete.success'),
+            ],
+            200
+        );
     }
 }

@@ -14,5 +14,8 @@ Route::group(
 
         Route::put('/exercises/{exercise}', [ExerciseController::class, 'update'])
             ->name('exercise.update');
+
+        Route::delete('/exercises/{exercise}', [ExerciseController::class, 'destroy'])
+            ->name('exercise.destroy');
     }
 );
