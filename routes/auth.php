@@ -12,6 +12,9 @@ Route::post('/login', [LoginController::class, 'store'])
     ->name('user.login');
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::put('/user/update', [RegisterController::class, 'update'])
+        ->name('user.update');
+
     Route::delete('/logout', [LogoutController::class, 'logout'])
         ->name('user.logout');
 
