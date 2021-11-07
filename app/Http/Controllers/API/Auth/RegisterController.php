@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\UpdateRequest;
 use App\Http\Resources\UserResource;
+use App\Http\Traits\RemoveRequiredEmptyFieldsTrait;
 use App\Models\User;
 
 class RegisterController extends Controller
 {
+    use RemoveRequiredEmptyFieldsTrait;
+
     public function store(RegisterRequest $request)
     {
         $validated = $request->all();
@@ -26,6 +29,7 @@ class RegisterController extends Controller
     public function update(UpdateRequest $request)
     {
         $validated = $request->validated();
+        $validated = RemoveRequiredEmptyFieldsTrait::removeRequiredEmptyFields($validated, User::$requiredFields);
 
         /**
          * @var \App\Models\User
