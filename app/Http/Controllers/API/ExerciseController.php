@@ -6,17 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Exercise\StoreRequest;
 use App\Http\Requests\Exercise\UpdateRequest;
 use App\Http\Resources\ExerciseResource;
+use App\Http\Traits\RemoveRequiredEmptyFieldsTrait;
 use App\Models\Exercise;
 use App\Models\User;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class ExerciseController extends Controller
 {
+    use RemoveRequiredEmptyFieldsTrait;
+
     public function index()
     {
         //
@@ -61,6 +61,7 @@ class ExerciseController extends Controller
     public function update(UpdateRequest $request, Exercise $exercise)
     {
         $validated = $request->validated();
+        $validated = RemoveRequiredEmptyFieldsTrait::removeRequiredEmptyFields($validated, Exercise::$requiredFields);
         $exercise->update($validated);
 
         if (auth()->id() != $exercise->user_id) {

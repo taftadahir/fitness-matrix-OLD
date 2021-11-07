@@ -12,6 +12,8 @@ class Exercise extends Model
 
     protected $fillable = ['name', 'time_based', 'reps_based', 'published', 'avatar'];
 
+    public static $requiredFields = ['name', 'time_based', 'reps_based', 'published'];
+
     protected $casts = [
         'name' => 'string',
         'avatar' => 'string',
