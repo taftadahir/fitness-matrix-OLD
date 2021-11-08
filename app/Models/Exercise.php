@@ -16,7 +16,7 @@ class Exercise extends Model
 
     protected $casts = [
         'name' => 'string',
-        'avatar' => 'string',
+        'image' => 'string',
         'time_based' => 'boolean',
         'reps_based' => 'boolean',
         'published' => 'boolean',
