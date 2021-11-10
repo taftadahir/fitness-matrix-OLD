@@ -9,7 +9,6 @@ use App\Http\Resources\ExerciseResource;
 use App\Http\Traits\RemoveRequiredEmptyFieldsTrait;
 use App\Models\Exercise;
 use App\Models\User;
-use Exception;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

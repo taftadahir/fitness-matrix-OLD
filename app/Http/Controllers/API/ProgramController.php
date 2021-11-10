@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Program\StoreRequest;
 use App\Http\Resources\ProgramResource;
 use App\Models\Program;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProgramController extends Controller
 {
@@ -37,7 +39,14 @@ class ProgramController extends Controller
 
     public function show(Program $program)
     {
-        //
+        // Program is not published and user is not creator => 404
+        if ((!$program->published) && auth()->id() != null && ($program->user->id != auth()->id())) {
+            throw new NotFoundHttpException();
+        }
+
+        return response()->json(
+            ['program' => new ProgramResource($program),]
+        );
     }
 
     public function edit(Program $program)
