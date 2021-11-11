@@ -14,5 +14,8 @@ Route::group(
 
         Route::put('/programs/{program}', [ProgramController::class, 'update'])
             ->name('program.update');
+
+        Route::delete('/programs/{program}', [ProgramController::class, 'destroy'])
+            ->name('program.destroy');
     }
 );

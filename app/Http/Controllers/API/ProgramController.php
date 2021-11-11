@@ -77,6 +77,17 @@ class ProgramController extends Controller
 
     public function destroy(Program $program)
     {
-        //
+        if (auth()->id() != $program->user_id) {
+            abort(403, __('auth.forbidden'));
+        }
+
+        $program->delete();
+
+        return response()->json(
+            [
+                'message' => trans('messages.program.delete.success'),
+            ],
+            200
+        );
     }
 }
