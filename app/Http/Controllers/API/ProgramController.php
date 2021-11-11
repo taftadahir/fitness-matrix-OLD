@@ -4,9 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Program\StoreRequest;
+use App\Http\Requests\Program\UpdateRequest;
 use App\Http\Resources\ProgramResource;
 use App\Models\Program;
 use Illuminate\Http\Request;
+use App\Http\Traits\RemoveRequiredEmptyFieldsTrait;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -54,9 +56,23 @@ class ProgramController extends Controller
         //
     }
 
-    public function update(Request $request, Program $program)
+    public function update(UpdateRequest $request, Program $program)
     {
-        //
+        if (auth()->id() != $program->user_id) {
+            abort(403, __('auth.forbidden'));
+        }
+
+        $validated = $request->validated();
+        $validated = RemoveRequiredEmptyFieldsTrait::removeRequiredEmptyFields($validated, Program::$requiredFields);
+        $program->update($validated);
+
+        return response()->json(
+            [
+                'message' => trans('messages.program.update.success'),
+                'program' => new ProgramResource($program)
+            ],
+            200
+        );
     }
 
     public function destroy(Program $program)

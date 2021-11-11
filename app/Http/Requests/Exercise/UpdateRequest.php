@@ -14,7 +14,7 @@ class UpdateRequest extends FormRequest
 
     public function rules()
     {
-        $exercise = $this->exercise;
+        // $exercise = $this->exercise;
         // ->ignore($this->exercise->id)
         // ->where('user_id', $this->user()->id)
         // dd($this->exercise->id);

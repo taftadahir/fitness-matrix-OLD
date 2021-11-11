@@ -11,5 +11,8 @@ Route::group(
 
         Route::get('/programs/{program}', [ProgramController::class, 'show'])
             ->name('program.show');
+
+        Route::put('/programs/{program}', [ProgramController::class, 'update'])
+            ->name('program.update');
     }
 );
