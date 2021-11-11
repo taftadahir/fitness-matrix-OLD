@@ -59,13 +59,13 @@ class ExerciseController extends Controller
 
     public function update(UpdateRequest $request, Exercise $exercise)
     {
-        $validated = $request->validated();
-        $validated = RemoveRequiredEmptyFieldsTrait::removeRequiredEmptyFields($validated, Exercise::$requiredFields);
-        $exercise->update($validated);
-
         if (auth()->id() != $exercise->user_id) {
             abort(403, __('auth.forbidden'));
         }
+
+        $validated = $request->validated();
+        $validated = RemoveRequiredEmptyFieldsTrait::removeRequiredEmptyFields($validated, Exercise::$requiredFields);
+        $exercise->update($validated);
 
         return response()->json(
             [
