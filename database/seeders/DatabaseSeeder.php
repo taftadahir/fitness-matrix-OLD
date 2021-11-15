@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Factories\WorkoutFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ExerciseSeeder::class,
             ProgramSeeder::class,
+            WorkoutSeeder::class,
         ]);
     }
 }
