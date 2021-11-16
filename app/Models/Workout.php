@@ -15,7 +15,7 @@ class Workout extends Model
     ];
 
     public static $requiredFields = [
-        'exercise_id', 'program_id'
+        'exercise_id', 'program_id', 'prevable_type', 'prevable_id'
     ];
 
     protected $attributes = [];
