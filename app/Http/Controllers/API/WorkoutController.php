@@ -53,7 +53,9 @@ class WorkoutController extends Controller
 
     public function show(Workout $workout)
     {
-        //
+        return response()->json(
+            ['workout' => new WorkoutResource($workout),]
+        );
     }
 
     public function edit(Workout $workout)
