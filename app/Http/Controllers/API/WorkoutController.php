@@ -94,6 +94,17 @@ class WorkoutController extends Controller
 
     public function destroy(Workout $workout)
     {
-        //
+        if (auth()->id() != $workout->program->user_id) {
+            abort(403, __('auth.forbidden'));
+        }
+
+        $workout->delete();
+
+        return response()->json(
+            [
+                'message' => trans('messages.workout.delete.success'),
+            ],
+            200
+        );
     }
 }

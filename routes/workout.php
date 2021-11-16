@@ -14,5 +14,8 @@ Route::group(
 
         Route::get('/{workout}', [WorkoutController::class, 'show'])
             ->name('show');
+
+        Route::delete('/{workout}', [WorkoutController::class, 'destroy'])
+            ->name('destroy');
     }
 );

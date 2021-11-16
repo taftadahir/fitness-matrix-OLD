@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Exercise extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, CascadeSoftDeletes;
 
     protected $fillable = ['name', 'time_based', 'reps_based', 'published', 'avatar'];
 
@@ -21,6 +22,8 @@ class Exercise extends Model
         'reps_based' => 'boolean',
         'published' => 'boolean',
     ];
+
+    protected $cascadeDeletes = ['workouts'];
 
     public function user()
     {
