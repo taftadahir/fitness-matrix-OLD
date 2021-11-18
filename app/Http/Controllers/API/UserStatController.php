@@ -47,7 +47,9 @@ class UserStatController extends Controller
 
     public function show(UserStat $userStat)
     {
-        //
+        return response()->json(
+            ['user_stat' => new UserStatResource($userStat)]
+        );
     }
 
     public function edit(UserStat $userStat)

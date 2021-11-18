@@ -11,5 +11,8 @@ Route::group(
 
         Route::put('/{userStat}', [UserStatController::class, 'update'])
             ->name('update');
+
+        Route::get('/{userStat}', [UserStatController::class, 'show'])
+            ->name('show');
     }
 );
