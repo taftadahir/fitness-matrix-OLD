@@ -14,5 +14,8 @@ Route::group(
 
         Route::put('/{set}', [SetController::class, 'update'])
             ->name('update');
+
+        Route::delete('/{set}', [SetController::class, 'destroy'])
+            ->name('destroy');
     }
 );

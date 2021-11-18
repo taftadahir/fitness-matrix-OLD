@@ -29,7 +29,7 @@ class Program extends Model
         'published' => 'boolean',
     ];
 
-    protected $cascadeDeletes = ['workouts'];
+    protected $cascadeDeletes = ['workouts', 'sets'];
 
     public function user()
     {

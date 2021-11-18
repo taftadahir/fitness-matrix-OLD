@@ -99,6 +99,17 @@ class SetController extends Controller
 
     public function destroy(Set $set)
     {
-        //
+        if (auth()->id() != $set->program->user_id) {
+            abort(403, __('auth.forbidden'));
+        }
+
+        $set->delete();
+
+        return response()->json(
+            [
+                'message' => trans('messages.set.delete.success'),
+            ],
+            200
+        );
     }
 }
