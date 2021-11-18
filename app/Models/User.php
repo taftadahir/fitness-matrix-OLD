@@ -36,7 +36,7 @@ class User extends Authenticatable
         'avatar' => 'string',
     ];
 
-    protected $cascadeDeletes = ['exercises', 'programs'];
+    protected $cascadeDeletes = ['exercises', 'programs', 'userStats'];
 
     public function exercises()
     {

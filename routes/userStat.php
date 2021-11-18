@@ -14,5 +14,8 @@ Route::group(
 
         Route::get('/{userStat}', [UserStatController::class, 'show'])
             ->name('show');
+
+        Route::delete('/{userStat}', [UserStatController::class, 'destroy'])
+            ->name('destroy');
     }
 );

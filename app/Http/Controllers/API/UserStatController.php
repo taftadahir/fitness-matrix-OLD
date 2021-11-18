@@ -88,6 +88,17 @@ class UserStatController extends Controller
 
     public function destroy(UserStat $userStat)
     {
-        //
+        if (auth()->id() != $userStat->user_id) {
+            abort(403, __('auth.forbidden'));
+        }
+
+        $userStat->delete();
+
+        return response()->json(
+            [
+                'message' => trans('messages.user_stat.delete.success'),
+            ],
+            200
+        );
     }
 }
