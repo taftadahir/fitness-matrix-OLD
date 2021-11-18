@@ -8,5 +8,8 @@ Route::group(
     function () {
         Route::post('', [UserStatController::class, 'store'])
             ->name('store');
+
+        Route::put('/{userStat}', [UserStatController::class, 'update'])
+            ->name('update');
     }
 );
