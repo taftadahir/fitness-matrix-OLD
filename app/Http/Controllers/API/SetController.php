@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Set\StoreRequest;
 use App\Http\Resources\SetResource;
 use App\Models\Program;
 use App\Models\Set;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SetController extends Controller
 {
@@ -48,7 +50,14 @@ class SetController extends Controller
 
     public function show(Set $set)
     {
-        //
+        // Program is not published and user is not creator => 404
+        if (!($set->program->published) && auth()->id() != null && ($set->program->user->id != auth()->id())) {
+            throw new NotFoundHttpException();
+        }
+
+        return response()->json(
+            ['set' => new SetResource($set)]
+        );
     }
 
     public function edit(Set $set)

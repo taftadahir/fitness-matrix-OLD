@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\SetController;
+use App\Http\Controllers\API\SetController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(
@@ -8,5 +8,8 @@ Route::group(
     function () {
         Route::post('', [SetController::class, 'store'])
             ->name('store');
+
+        Route::get('/{set}', [SetController::class, 'show'])
+            ->name('show');
     }
 );
