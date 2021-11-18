@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             ProgramSeeder::class,
             SetSeeder::class,
             WorkoutSeeder::class,
+            UserStatSeeder::class,
         ]);
     }
 }
