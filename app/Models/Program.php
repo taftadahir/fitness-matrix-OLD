@@ -40,4 +40,9 @@ class Program extends Model
     {
         return $this->hasMany(Workout::class);
     }
+
+    public function sets()
+    {
+        return $this->hasMany(Set::class);
+    }
 }

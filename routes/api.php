@@ -9,3 +9,5 @@ require __DIR__ . '/exercise.php';
 require __DIR__ . '/program.php';
 
 require __DIR__ . '/workout.php';
+
+require __DIR__ . '/set.php';
