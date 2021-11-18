@@ -11,5 +11,8 @@ Route::group(
 
         Route::get('/{set}', [SetController::class, 'show'])
             ->name('show');
+
+        Route::put('/{set}', [SetController::class, 'update'])
+            ->name('update');
     }
 );

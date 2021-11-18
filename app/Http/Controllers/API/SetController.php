@@ -4,12 +4,14 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Set\StoreRequest;
+use App\Http\Requests\UpdateSetRequest;
 use App\Http\Resources\SetResource;
 use App\Models\Program;
 use App\Models\Set;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Http\Traits\RemoveRequiredEmptyFieldsTrait;
 
 class SetController extends Controller
 {
@@ -65,9 +67,34 @@ class SetController extends Controller
         //
     }
 
-    public function update(Request $request, Set $set)
+    public function update(UpdateSetRequest $request, Set $set)
     {
-        //
+        $validated = $request->validated();
+
+
+        /**
+         * @var User
+         */
+        $user = Auth::user();
+
+        if ($user->id != $set->program->user_id) {
+            abort(403, __('auth.forbidden'));
+        }
+
+        $validated = RemoveRequiredEmptyFieldsTrait::removeRequiredEmptyFields($validated, Set::$requiredFields);
+
+        if (array_key_exists('program_id', $validated) && $validated['program_id'] != $set->program_id) {
+            $program = Program::where('id', $validated['program_id'])->first();
+            $set->program()->associate($program);
+        }
+
+        $set->update($validated);
+        return response()->json(
+            [
+                'message' => trans('messages.workout.update.success'),
+                'set' => new SetResource($set)
+            ],
+        );
     }
 
     public function destroy(Set $set)
